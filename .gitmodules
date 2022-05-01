@@ -1,0 +1,9 @@
+[submodule "portfolio"]
+	path = portfolio
+	url = https://github.com/shaendro/portfolio.git
+[submodule "herbarium"]
+	path = herbarium
+	url = https://github.com/shaendro/herbarium.git
+[submodule "outschedule"]
+	path = outschedule
+	url = https://github.com/shaendro/outschedule.git
