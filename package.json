@@ -1,17 +1,15 @@
 {
-  "name": "lonauer",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "database": "redis-stack-server ./redis.conf",
-    "server": "node index.js",
-    "start": "pm2 start ecosystem.config.cjs"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "socket.io": "^4.4.1"
-  },
-  "author": "",
-  "license": "ISC"
+	"name": "lonauer",
+	"version": "1.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"database": "redis-stack-server ./redis.conf",
+		"server": "node server/index.js",
+		"start": "pm2 start ecosystem.config.cjs"
+	},
+	"dependencies": {
+		"express": "^4.17.1"
+	},
+	"author": ""
 }

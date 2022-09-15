@@ -1,38 +1,46 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+## Installation
 
 ```bash
-# create a new project in the current directory
-npm init svelte
+echo 'Installing Node and RedisStack';
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg;
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list;
+sudo apt-get update -y;
+sudo apt-get install -y git redis-stack-server;
+sudo systemctl disable redis-stack-server.service;
+exec bash;
+nvm install node;
 
-# create a new project in my-app
-npm init svelte my-app
+echo 'Installing Project Dependencies';
+npm install;
+npm install pm2 -g;
+npm run build;
+
+echo 'Installing CertBot';
+sudo apt install snapd -y;
+sudo snap install core;
+sudo snap refresh core;
+sudo snap install --classic certbot;
+sudo certbot certonly --standalone --domains lonauer.com;
+sudo cp /etc/letsencrypt/live/lonauer.com/privkey.pem ./privkey.pem
+sudo cp /etc/letsencrypt/live/lonauer.com/fullchain.pem ./fullchain.pem
+sudo chmod 777 ./privkey.pem ./fullchain.pem
+
+echo 'Setting up Port Forwarding';
+sudo iptables -t nat -F;
+sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 3000;
+sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 4000;
+sudo /sbin/iptables-save;
+
+echo 'Setting up Application';
+pm2 start ecosystem.config.cjs;
+pm2 save;
+pm2 startup;
+
 ```
 
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm run dev;
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
