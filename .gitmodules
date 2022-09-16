@@ -4,9 +4,6 @@
 [submodule "herbarium"]
 	path = herbarium
 	url = https://github.com/shaendro/herbarium.git
-[submodule "outschedule"]
-	path = outschedule
-	url = https://github.com/shaendro/outschedule.git
 [submodule "mom"]
 	path = mom
 	url = https://github.com/shaendro/mom.git
