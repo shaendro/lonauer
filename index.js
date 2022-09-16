@@ -20,8 +20,8 @@ const createServer = async () => {
 	}
 
 	const app = express();
-	app.use('/', await Portfolio(true));
 	app.use(createSubdomain('teachest', await Teachest(true)));
+	app.use('/', await Portfolio(true));
 
 	// app.use(createSubdomain('oleander', oleander));
 	// app.use(createSubdomain('herbarium', herbarium));
@@ -40,11 +40,11 @@ const createServer = async () => {
 
 const createSubdomain = (subdomain, handler) => {
 	return (request, response, next) => {
-		request._subdomainLevel = request._subdomainLevel ?? 0;
+    request._subdomainLevel = request._subdomainLevel ?? 0;
 		const subdomains = subdomain.split('.').reverse();
 		for (let i = 0; i < subdomains.length; i++) {
 			const expected = subdomains[i];
-			if (expected === '*') continue;
+      if (expected === '*') continue;
 			const actual = request.subdomains[i + request._subdomainLevel];
 			if (actual !== expected) return next();
 		}
