@@ -13,7 +13,7 @@
 </script>
 
 <Router primary={false}>
-	<HeadConfig title="MetaStack" image="/favicon.png" description={translate('textDescription')} />
+	<HeadConfig title="Lonauer" image="/favicon.png" description={translate('textDescription')} />
 	<main class="overflow-hidden" use:links>
 		<Navigation />
 		<div class="my-4 grid p-2">

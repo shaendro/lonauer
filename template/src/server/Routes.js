@@ -5,11 +5,8 @@ import { v4 as uuid } from 'uuid';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
+import User from '../models/User.js';
 import { storage } from './Storage.js';
-import User from '../client/utility/models/User.js';
-import Node from '../client/utility/models/Node.js';
-
-import { staticUsers, staticNodes } from '../../config.js';
 
 const passphrase = 'NEP10nG52XK29ZcgZeo*50oZL18Y1!yqx15bqO2i5Dn&Ldqinq';
 
@@ -17,13 +14,8 @@ const createStaticData = async () => {
 	const userStorage = storage('users');
 	const users = await userStorage.keys();
 	for (const key of users) await userStorage.delete(key);
+	const staticUsers = [{ username: 'admin', password: '0ba11af583fab41d0c599619a1c87a4c451f258bb2fa1137d7a84245a8a4c488ef3c01d887f988ba9e7c1653b3f4393aabbea67711d628002733b7b7488303f4' }]; //6x4TU&P8CSq%
 	for (const user of staticUsers.map((user) => User(user))) await userStorage.set(user.id, user);
-
-	const nodeStorage = storage('nodes');
-	const nodes = await nodeStorage.keys();
-	for (const key of nodes) await nodeStorage.delete(key);
-	for (const node of staticNodes.map((node) => Node(node))) await nodeStorage.set(node.id, node);
-
 	return await userStorage.keys();
 };
 
@@ -44,7 +36,7 @@ export const createRouter = async (production = false) => {
 		try {
 			const userStorage = storage('users');
 			let users = await userStorage.keys();
-			if (users.length !== 3) users = await createStaticData();
+			users = await createStaticData();
 
 			for (const key of users) {
 				const user = await userStorage.get(key);

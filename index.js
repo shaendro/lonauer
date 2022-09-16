@@ -3,8 +3,7 @@ import http from 'http';
 import https from 'https';
 import express from 'express';
 
-import Subdomain from './Subdomain.js';
-import { createRouter as Template } from '../template/src/server/Routes.js';
+import { createRouter as Template } from './template/src/server/Routes.js';
 
 const httpPort = 3000;
 const httpsPort = 4000;
@@ -23,10 +22,10 @@ const createServer = async () => {
 	app.use('/', await Template(true));
 
 	// app.use(portfolio);
-	// app.use(Subdomain('oleander', oleander));
-	// app.use(Subdomain('herbarium', herbarium));
-	// app.use(Subdomain('outschedule', outschedule));
-	// app.use(Subdomain('retrospective', retrospective));
+	// app.use(createSubdomain('oleander', oleander));
+	// app.use(createSubdomain('herbarium', herbarium));
+	// app.use(createSubdomain('outschedule', outschedule));
+	// app.use(createSubdomain('retrospective', retrospective));
 
 	if (privateKey && certificate) {
 		const credentials = { key: privateKey, cert: certificate };
@@ -37,6 +36,21 @@ const createServer = async () => {
 		http.createServer({}, app).listen(httpPort);
 		console.info(`Server is listening on http://localhost:${httpPort}`);
 	}
+};
+
+const createSubdomain = (subdomain, handler) => {
+	return (request, response, next) => {
+		request._subdomainLevel = request._subdomainLevel ?? 0;
+		const subdomains = subdomain.split('.').reverse();
+		for (let i = 0; i < subdomains.length; i++) {
+			const expected = subdomains[i];
+			if (expected === '*') continue;
+			const actual = request.subdomains[i + request._subdomainLevel];
+			if (actual !== expected) return next();
+		}
+		request._subdomainLevel++;
+		return handler(request, response, next);
+	};
 };
 
 createServer();

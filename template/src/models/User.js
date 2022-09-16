@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { softAssign } from '../Utility.js';
+import { softAssign } from '../client/utility/Utility.js';
 
 export default (data = {}) => {
 	return softAssign(

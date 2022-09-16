@@ -26,7 +26,7 @@ const createServer = async () => {
 		const credentials = { key: privateKey, cert: certificate };
 		http.createServer((request, response) => response.writeHead(301, { Location: `https://${request.headers['host']}${request.url}` }).end()).listen(httpPort);
 		https.createServer(credentials, app).listen(httpsPort);
-		console.info(`Server is listening on https://dashboard.metastackdata.com/`);
+		console.info(`Server is listening on https://lonauer.com/`);
 	} else {
 		const app = express();
 		app.use('/', await createRouter(false));
