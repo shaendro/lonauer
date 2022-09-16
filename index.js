@@ -3,7 +3,8 @@ import http from 'http';
 import https from 'https';
 import express from 'express';
 
-import { createRouter as Template } from './template/src/server/Routes.js';
+import { createRouter as Teachest } from './teachest/src/server/Routes.js';
+import { createRouter as Portfolio } from './portfolio/src/server/Routes.js';
 
 const httpPort = 3000;
 const httpsPort = 4000;
@@ -19,11 +20,10 @@ const createServer = async () => {
 	}
 
 	const app = express();
-	app.use('/', await Template(true));
+	app.use('/', await Portfolio(true));
+	app.use(createSubdomain('teachest', await Teachest(true)));
 
-	// app.use(portfolio);
 	// app.use(createSubdomain('oleander', oleander));
-	// app.use(createSubdomain('teachest', teachest));
 	// app.use(createSubdomain('herbarium', herbarium));
 	// app.use(createSubdomain('retrospective', retrospective));
 
