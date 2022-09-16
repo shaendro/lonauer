@@ -10,3 +10,6 @@
 [submodule "mom"]
 	path = mom
 	url = https://github.com/shaendro/mom.git
+[submodule "teachest"]
+	path = teachest
+	url = https://github.com/shaendro/teachest.git

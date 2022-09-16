@@ -23,8 +23,8 @@ const createServer = async () => {
 
 	// app.use(portfolio);
 	// app.use(createSubdomain('oleander', oleander));
+	// app.use(createSubdomain('teachest', teachest));
 	// app.use(createSubdomain('herbarium', herbarium));
-	// app.use(createSubdomain('outschedule', outschedule));
 	// app.use(createSubdomain('retrospective', retrospective));
 
 	if (privateKey && certificate) {
