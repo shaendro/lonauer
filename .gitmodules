@@ -4,3 +4,9 @@
 [submodule "teachest"]
 	path = teachest
 	url = https://github.com/shaendro/teachest.git
+[submodule "cosmicle"]
+	path = cosmicle
+	url = https://github.com/shaendro/cosmicle.git
+[submodule "subtitles"]
+	path = subtitles
+	url = https://github.com/shaendro/subtitles.git
