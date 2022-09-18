@@ -1,12 +1,6 @@
 [submodule "portfolio"]
 	path = portfolio
 	url = https://github.com/shaendro/portfolio.git
-[submodule "herbarium"]
-	path = herbarium
-	url = https://github.com/shaendro/herbarium.git
-[submodule "mom"]
-	path = mom
-	url = https://github.com/shaendro/mom.git
 [submodule "teachest"]
 	path = teachest
 	url = https://github.com/shaendro/teachest.git
