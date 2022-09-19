@@ -21,7 +21,7 @@ sudo apt install snapd -y;
 sudo snap install core;
 sudo snap refresh core;
 sudo snap install --classic certbot;
-sudo certbot certonly --standalone --domains lonauer.com --domains www.lonauer.com --domains teachest.lonauer.com;
+sudo certbot certonly --standalone --domains lonauer.com --domains www.lonauer.com --domains teachest.lonauer.com --domains subtitles.lonauer.com --domains cosmicle.lonauer.com;
 sudo cp /etc/letsencrypt/live/lonauer.com/privkey.pem ./privkey.pem
 sudo cp /etc/letsencrypt/live/lonauer.com/fullchain.pem ./fullchain.pem
 sudo chmod 777 ./privkey.pem ./fullchain.pem

@@ -4,6 +4,8 @@ import https from 'https';
 import express from 'express';
 
 import { createRouter as Teachest } from './teachest/src/server/Routes.js';
+import { createRouter as Subtitles } from './subtitles/src/server/Routes.js';
+import { createRouter as Cosmicle } from './cosmicle/src/server/Routes.js';
 import { createRouter as Portfolio } from './portfolio/src/server/Routes.js';
 
 const httpPort = 3000;
@@ -21,6 +23,8 @@ const createServer = async () => {
 
 	const app = express();
 	app.use(createSubdomain('teachest', await Teachest(true)));
+	app.use(createSubdomain('subtitles', await Subtitles(true)));
+	app.use(createSubdomain('cosmicle', await Cosmicle(true)));
 	app.use('/', await Portfolio(true));
 
 	// app.use(createSubdomain('oleander', oleander));
@@ -40,11 +44,11 @@ const createServer = async () => {
 
 const createSubdomain = (subdomain, handler) => {
 	return (request, response, next) => {
-    request._subdomainLevel = request._subdomainLevel ?? 0;
+		request._subdomainLevel = request._subdomainLevel ?? 0;
 		const subdomains = subdomain.split('.').reverse();
 		for (let i = 0; i < subdomains.length; i++) {
 			const expected = subdomains[i];
-      if (expected === '*') continue;
+			if (expected === '*') continue;
 			const actual = request.subdomains[i + request._subdomainLevel];
 			if (actual !== expected) return next();
 		}
